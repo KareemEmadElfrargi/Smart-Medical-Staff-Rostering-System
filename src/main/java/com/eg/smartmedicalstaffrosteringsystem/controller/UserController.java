@@ -18,7 +18,7 @@ public class UserController {
     private final AuthenticationService authenticationService;
 
     @PostMapping
-    //@PreAuthorize("hasRole('HEAD_NURSE')")
+    @PreAuthorize("hasRole('HEAD_NURSE')")
     public ResponseEntity<Void> registerUser(@RequestBody RegisterRequest request) {
         authenticationService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();

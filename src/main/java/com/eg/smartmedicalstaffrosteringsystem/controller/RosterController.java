@@ -7,6 +7,7 @@ import com.eg.smartmedicalstaffrosteringsystem.service.RosterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,15 +34,15 @@ public class RosterController {
     }
 
     // Staff Nurse: View My Roster
-    @GetMapping("/my/{nationalId}")
-    public ResponseEntity<List<RosterDTO>> getMyRoster(@PathVariable String nationalId) {
-        //String nationalId = authentication.getName();
+    @GetMapping("/my")
+    public ResponseEntity<List<RosterDTO>> getMyRoster(Authentication authentication) {
+        String nationalId = authentication.getName();
         return ResponseEntity.ok(rosterService.getMyRoster(nationalId));
     }
     // Staff Nurse: View Daily Status (Dashboard)
-    @GetMapping("/daily/{nationalId}")
-    public ResponseEntity<DailyStatusResponse> getDailyStatus(@PathVariable String nationalId) {
-        //String nationalId = authentication.getName();
+    @GetMapping("/daily")
+    public ResponseEntity<DailyStatusResponse> getDailyStatus(Authentication authentication) {
+        String nationalId = authentication.getName();
         return ResponseEntity.ok(rosterService.getDailyStatus(nationalId));
     }
 }
